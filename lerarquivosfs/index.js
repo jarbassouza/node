@@ -1,3 +1,4 @@
+
 const fs = require('fs/promises');
 const path = require('path');
 
@@ -5,5 +6,10 @@ const path = require('path');
 
 fs.readdir(path.join('/', 'Users', 'Delarue','Downloads'))
   .then(files =>{
-    console.log(files)
+
+    const acceptedExtension = ['.zip', '.rar', 'exe']
+
+    const executables = files.filter(file => file.endsWith('.exe'))
+
+    console.log(executables)
 })
