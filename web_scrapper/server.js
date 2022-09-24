@@ -7,32 +7,36 @@ server.get('/', async (request, response) => {
     
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto('https://alura.com.br/formacao-front-end');
+    await page.goto('https://www.agazeta.com.br/es/transito/');
 
 
     const pageContent = await page.evaluate(() => {
    
         return {
-           title: document.querySelector('body section .formacao-headline-titulo').innerHTML,
-           subtitle: document.querySelector(' .formacao-headline-subtitulo').innerHTML
-        };
+          
+         //header: document.querySelector('.kicker').innerHTML,
+          title: document.querySelector('.titulo').innerHTML,
+          subtitle: document.querySelector('.linha-fina').innerHTML,
+
+         //title: document.querySelectorAll('header div.titulo')
+         //title: document.querySelectorAll('header p.linha-fina')
+        
+         
+};
     });
 
     console.log('pageContent:', pageContent);
-    
-    //pegar dados da pagina da alura
+  
+    //pegar dados de uma pagina
+
     await browser.close();
-   
+
     response.send({
     
-    "id":113709,
-    "code":"front-end",
-    "kind":"DEGREE",
-    "kindDisplayName":"Formação",
-    "kindSlugDisplayName":"formacao",
-    "situation":"PUBLISHED",
-    "title": pageContent.title,
-    "subtitle": pageContent.subtitle,
+   // "Cabeçalho": pageContent.header,
+    "Titulo": pageContent.title,
+    "Subtitulo": pageContent.subtitle,
+  
   });
 });
 
