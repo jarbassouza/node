@@ -2,6 +2,9 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
+const converter = require('json-2-csv');
+
+
 (async () => {
 
   console.log('Aguarde ...')
@@ -17,10 +20,13 @@ const fs = require('fs');
         let items = document.querySelectorAll('header .kicker, header .titulo, header .linha-fina');
        
         items.forEach((item) => {
-          results.push([
-            item.innerHTML
-          ])
-        });
+          results.push({
+        
+            Noticia: item.innerHTML,
+        
+        })
+
+    });
          
         return results;
         
@@ -29,12 +35,14 @@ const fs = require('fs');
 
  console.log(pageContent);
 
- fs.writeFile('transitoHoje.json', JSON.stringify(pageContent), err => {
+ fs.writeFile('transitoHoje.json', JSON.stringify(pageContent, null, 3), err => {
   
   if(err) throw new Error ('Algo deu errado')
   
  })
 
+
 await browser.close();    
 
 })();
+
