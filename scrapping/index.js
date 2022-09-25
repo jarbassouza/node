@@ -1,3 +1,10 @@
+/*
+
+Busca as principais noticiad de transito do site
+A Gazeta ES
+E cria um arquivo Json
+
+*/ 
 
 const puppeteer = require('puppeteer');
 const fs = require('fs');
