@@ -1,0 +1,2 @@
+# não enviar a pasta node_modules para o githut
+node_modules

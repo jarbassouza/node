@@ -9,7 +9,6 @@ const fs = require('fs');
   const page = await browser.newPage();
   await page.goto('https://www.agazeta.com.br/es/transito');
  
- 
 
  const pageContent = await page.evaluate (() => {
     
@@ -34,7 +33,6 @@ const fs = require('fs');
   
   if(err) throw new Error ('Algo deu errado')
   
-
  })
 
 await browser.close();    
