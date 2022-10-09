@@ -1,3 +1,4 @@
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -9,7 +10,7 @@ const schema = new Schema({
   },
   slug: {
     type: String,
-    required: true,
+    required: [true, 'O Slug é Obrigatorio'],
     trim: true,
     index: true,
     unique: true,
@@ -35,4 +36,4 @@ const schema = new Schema({
   ],
 });
 
-module.exports = mongoose.model("Product, schema");
+module.exports = mongoose.model('Product', schema);
