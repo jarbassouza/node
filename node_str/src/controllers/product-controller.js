@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const mongoose = require("mongoose");
 const Product = mongoose.model("Product");
@@ -34,26 +34,84 @@ exports.getBySlug = (req, res, next) => {
     });
 };
 
+exports.getById = (req, res, next) => {
+  Product.findById(req.params.id) 
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((e) => {
+      res.status(400).send(e);
+    });
+};
+
+exports.getByTag = (req, res, next) => {
+  Product.find(
+    {
+      tags: req.params.tag,
+      active: true,
+    },
+    "title description price slug tags"
+  )
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((e) => {
+      res.status(400).send(e);
+    });
+};
+
+
 exports.post = (req, res, next) => {
   var product = new Product(req.body);
   product
     .save()
     .then((x) => {
-      res.status(201).send({ message: "Produto Cadastrado Com Sucesso!" });
+      res.status(201).send({ 
+        message: "Produto Cadastrado Com Sucesso!" });
     })
     .catch((e) => {
-      res.status(400).send({ message: "Falha Durante o Cadastro", data: e });
+      res.status(400).send({ 
+        message: "Falha Durante o Cadastro", 
+        data: e });
     });
 };
 
 exports.put = (req, res, next) => {
-  const id = req.params.id;
-  res.status(200).send({
-    id: id,
-    item: req.body,
-  });
+  Product
+  .findByIdAndUpdate(req.params.id, {
+      $set: {
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        slug: req.body.slug,
+        tags: req.body.tags
+       }
+    })
+    .then( x => {
+      res.status(200).send({
+        message: 'Produto Atualizado Com Sucesso'
+      })
+    })
+    .catch(e => {
+      res.status(400).send({
+        message: 'Falha Ao Atualizar o Produto',
+        data: e
+      });
+    });
 };
 
 exports.delete = (req, res, next) => {
-  res.status(200).send(req.body);
-};
+  Product
+  .findOneAndRemove(req.body.id)
+    .then( x => {
+      res.status(200).send({
+        message: 'Produto Removido Com Sucesso'
+      })
+    })
+    .catch(e => {
+      res.status(400).send({
+        message: 'Falha Ao Tentar Remover O Produto',
+        data: e
+      });
+    });
+  };
