@@ -1,7 +1,8 @@
-'use strict';
+"use strict";
 
 const mongoose = require("mongoose");
 const Product = mongoose.model("Product");
+const ValidationContract = require('../validators/fluent-validator')
 
 exports.get = (req, res, next) => {
   Product.find(
@@ -35,7 +36,7 @@ exports.getBySlug = (req, res, next) => {
 };
 
 exports.getById = (req, res, next) => {
-  Product.findById(req.params.id) 
+  Product.findById(req.params.id)
     .then((data) => {
       res.status(200).send(data);
     })
@@ -60,58 +61,69 @@ exports.getByTag = (req, res, next) => {
     });
 };
 
-
 exports.post = (req, res, next) => {
+
+  let contract = new ValidationContract();
+  contract.hasMinLen(req.body.title, 3, 'O título deve ter, no mínimo, 3 caracteres');
+  contract.hasMinLen(req.body.slug, 3, 'O slug deve ter, no mínimo, 3 caracteres');
+  contract.hasMinLen(req.body.description, 3, 'A descricão deve ter, no mínimo, 3 caracteres');
+
+  // Se não validar
+  if (!contract.isValid()) {
+    res.status(400).send(contract.errors()).end();
+    return;
+  }
+
   var product = new Product(req.body);
   product
     .save()
     .then((x) => {
-      res.status(201).send({ 
-        message: "Produto Cadastrado Com Sucesso!" });
+      res.status(201).send({
+        message: "Produto Cadastrado Com Sucesso!",
+      });
     })
     .catch((e) => {
-      res.status(400).send({ 
-        message: "Falha Durante o Cadastro", 
-        data: e });
+      res.status(400).send({
+        message: "Falha Durante o Cadastro",
+        data: e,
+      });
     });
 };
 
 exports.put = (req, res, next) => {
-  Product
-  .findByIdAndUpdate(req.params.id, {
-      $set: {
-        title: req.body.title,
-        description: req.body.description,
-        price: req.body.price,
-        slug: req.body.slug,
-        tags: req.body.tags
-       }
-    })
-    .then( x => {
+  Product.findByIdAndUpdate(req.params.id, {
+    $set: {
+      title: req.body.title,
+      description: req.body.description,
+      price: req.body.price,
+      slug: req.body.slug,
+      tags: req.body.tags,
+    },
+  })
+    .then((x) => {
       res.status(200).send({
-        message: 'Produto Atualizado Com Sucesso'
-      })
+        message: "Produto Atualizado Com Sucesso",
+      });
     })
-    .catch(e => {
+    .catch((e) => {
       res.status(400).send({
-        message: 'Falha Ao Atualizar o Produto',
-        data: e
+        message: "Falha Ao Atualizar o Produto",
+        data: e,
       });
     });
 };
 
 exports.delete = (req, res, next) => {
-  Product
-  .findOneAndRemove(req.body.id)
-    .then( x => {
+  Product.findOneAndRemove(req.body.id)
+    .then((x) => {
       res.status(200).send({
-        message: 'Produto Removido Com Sucesso'
-      })
+        message: "Produto Removido Com Sucesso",
+      });
     })
-    .catch(e => {
+    .catch((e) => {
       res.status(400).send({
-        message: 'Falha Ao Tentar Remover O Produto',
-        data: e
+        message: "Falha Ao Tentar Remover O Produto",
+        data: e,
       });
     });
-  };
+};
