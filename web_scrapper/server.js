@@ -1,3 +1,4 @@
+const { response } = require('express');
 const express = require('express');
 const puppeteer = require('puppeteer');
 
@@ -14,18 +15,16 @@ server.get('/', async (request, response) => {
    
         return {
           
-         //header: document.querySelector('.kicker').innerHTML,
+          header: document.querySelector('.kicker').innerHTML,
           title: document.querySelector('.titulo').innerHTML,
           subtitle: document.querySelector('.linha-fina').innerHTML,
 
          //title: document.querySelectorAll('header div.titulo')
          //title: document.querySelectorAll('header p.linha-fina')
         
-         
 };
-    });
 
-    console.log('pageContent:', pageContent);
+    });
   
     //pegar dados de uma pagina
 
@@ -33,12 +32,15 @@ server.get('/', async (request, response) => {
 
     response.send({
     
-   // "Cabeçalho": pageContent.header,
+    "Cabeçalho": pageContent.header,
     "Titulo": pageContent.title,
     "Subtitulo": pageContent.subtitle,
   
   });
+
 });
+
+
 
 const port = 3000;
 
