@@ -11,7 +11,7 @@ exports.get = async () => {
     "title price slug"
   );
   return res;
-};
+}; 
 
 exports.getBySlug = async (slug) => {
   const res = await Product.findOne(

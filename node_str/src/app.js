@@ -1,4 +1,11 @@
 'use strict'
+
+/*
+Curso de Node.js - Aprenda a criar APIs RESTful com Node.js e MongoDB
+Autor: balta.io
+Data: 2020
+*/
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
