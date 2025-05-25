@@ -1,5 +1,3 @@
-'use strict'
-
 /*
 Este scrip convert uma planilha csv para json
 */ 
