@@ -1,3 +1,8 @@
+// Este script lista os arquivos em um diretório especificado,
+// os filtra por extensão, divide seus nomes em partes e usando um delimitador,
+// cria um array com essas partes. Em seguida, ele adiciona um cabeçalho
+// salva o resultado em um arquivo Excel com um cabeçalho personalizável.
+
 const fs = require("fs/promises");
 const path = require("path");
 const XLSX = require("xlsx");

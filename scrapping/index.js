@@ -28,7 +28,7 @@ const converter = require('json-2-csv');
        
         items.forEach((item) => {
           results.push({
-        
+            
             Noticia: item.innerHTML,
         
         })
