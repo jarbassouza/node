@@ -1,0 +1,34 @@
+[
+  {
+    "Matricula": "9625",
+    "Nome": "Antonio",
+    "Funcao": "motorista",
+    "Nascimento": "12/03/1935",
+    "Admissao": "25/02/1955",
+    "Telefone": "2700558523"
+  },
+  {
+    "Matricula": "6996",
+    "Nome": "jota",
+    "Funcao": "cobrador",
+    "Nascimento": "12/03/1985",
+    "Admissao": "25/02/1955",
+    "Telefone": "2700558523"
+  },
+  {
+    "Matricula": "3696",
+    "Nome": "Marilia",
+    "Funcao": "auxiliar",
+    "Nascimento": "12/03/1999",
+    "Admissao": "25/02/1955",
+    "Telefone": "2700558523"
+  },
+  {
+    "Matricula": "5825",
+    "Nome": "Roberto Carlos",
+    "Funcao": "assistente",
+    "Nascimento": "12/03/2003",
+    "Admissao": "25/02/1955",
+    "Telefone": "2700558523"
+  }
+]
